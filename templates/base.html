@@ -1,0 +1,94 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <title>WBC Classification Using CNN</title>
+    <style>
+        body {
+            display: flex;
+            min-height: 100vh;
+            margin: 0;
+            background-image: url("{% static 'wbc image.jpeg' %}");
+            background-size: cover;
+            background-position: center;
+            color: white;
+        }
+        .sidebar {
+            min-width: 250px;
+            background-color: rgba(0, 0, 0, 0.7); /* Semi-transparent background */
+            padding: 20px;
+            position: fixed; /* Keep sidebar fixed */
+            height: 100%; /* Full height */
+        }
+        .content {
+            flex-grow: 1;
+            padding: 20px;
+            margin-left: 270px; /* Adjusted for sidebar width */
+            background-color: transparent; /* Keep content area transparent */
+            border-radius: 10px; /* Rounded corners */
+        }
+        .nav-link {
+            margin-bottom: 10px;
+            color: rgb(12, 2, 2); /* White text for nav links */
+            
+            font-weight:bold;
+            padding: 15px 25px; /* Padding for button look */
+            border-radius: 15px; /* Rounded corners */
+            background-size: cover;
+            background-position: center;
+            transition: background-color 0.3s, color 0.3s, border 0.3s, transform 0.2s; /* Transition effects */
+        }
+        /* Custom backgrounds for each nav link */
+        .nav-link.home { background-image: url("{% static 'wbc image.jpeg' %}"); }
+        .nav-link.user-login { background-image: url("{% static 'wbc image.jpeg' %}"); }
+        .nav-link.admin-login { background-image: url("{% static 'wbc image.jpeg' %}"); }
+        .nav-link.create-account { background-image: url("{% static 'wbc image.jpeg' %}"); }
+
+        /* Hover effect */
+        .nav-link:hover {
+            color: #FFD700; /* Gold color on hover */
+            background-color: rgba(255, 255, 255, 0.2); /* Light background on hover */
+            transform: scale(1.05); /* Slightly grow button on hover */
+        }
+
+        h2 {
+            color: #FFA500;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.7); /* Shadow for text */
+        }
+
+        footer {
+            text-align: center;
+            position: absolute;
+            bottom: 10px;
+            left: 0;
+            right: 0;
+            color: white;
+        }
+    </style>
+</head>
+<body>
+    <div class="sidebar">
+        <h2><br>WBC<br>Classification<br>Using CNN</h2>
+        <div class="nav flex-column">
+            <a class="nav-link home" href="{% url 'index' %}">Home</a>
+            <a class="nav-link user-login" href="{% url 'UserLogin' %}">User Login</a>
+            <a class="nav-link admin-login" href="{% url 'AdminLogin' %}">Admin Login</a>
+            <a class="nav-link create-account" href="{% url 'UserRegisterForm' %}">Create Account</a>
+            
+        </div>
+    </div>
+    
+    <div class="content">
+        {% block contents %}
+        {% endblock %}
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>

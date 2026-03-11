@@ -1,0 +1,73 @@
+{% extends 'users/userbase.html' %}
+{% load static %}
+
+{% block contents %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Upload and Predict WBC Class</title>
+    <style>
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            margin: 0;
+            background-color: #f0f0f0;
+        }
+        .container {
+            text-align: center;
+            background-color:rgba(0, 0, 0, 0.7); ;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.4);
+            max-width: 600px;
+            width: 90%;
+        }
+        h1 {
+            color: white;
+            margin-bottom: 20px;
+        }
+        form {
+            margin-bottom: 20px;
+        }
+        button {
+            padding: 10px 20px;
+            background-color: #007bff;
+            border: none;
+            color: white;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Upload an Image to Predict the WBC Class</h1>
+
+        <!-- Form to upload image -->
+        <form method="post" enctype="multipart/form-data">
+            {% csrf_token %}
+            <input type="file" name="image" required>
+            <button type="submit">Predict</button>
+        </form>
+
+        <!-- Display result after form submission -->
+        {% if predicted_class %}
+            <h2 style="color:yellow;">Prediction Result:</h2>
+            
+            <img src="{{ image_url }}" alt="Uploaded Image" style="max-width: 100%; height: auto;">
+
+            <p style="color:yellow;font-size:30px"><strong>Belongs to :</strong> {{ predicted_class }}</p>
+        {% endif %}
+    </div>
+</body>
+</html>
+
+{% endblock %}
