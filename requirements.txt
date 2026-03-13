@@ -1,7 +1,6 @@
- 
-#numpy
-#pandas
-#scikit-learn
-#flask
-#tensorflow
+django
 gunicorn
+tensorflow
+numpy
+opencv-python
+pillow
