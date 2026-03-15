@@ -1,0 +1,24 @@
+[phases.setup]
+nixPkgs = ["python311", "gcc"]
+```
+
+---
+
+### ✅ Fix 2: Fix your `requirements.txt`
+
+As Railway's agent already suggested, pin these versions:
+```
+django==4.2
+gunicorn==21.2.0
+tensorflow==2.15.0
+numpy==1.26.4
+pillow==12.1.1
+```
+
+---
+
+### ✅ Fix 3: Add a `Procfile`
+
+Make sure you have a `Procfile` in root:
+```
+web: gunicorn yourprojectname.wsgi --bind 0.0.0.0:$PORT
