@@ -68,3 +68,4 @@ gunicorn==21.2.0
 tensorflow==2.15.0
 numpy
 pillow
+python 3.11.9
