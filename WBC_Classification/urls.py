@@ -23,9 +23,6 @@ from django.contrib.staticfiles.urls import static
 from django.contrib.staticfiles.urls import staticfiles_urlpatterns
 from django.conf import settings
 from users import views as uv
-
-
-
 urlpatterns = [
     path('admin/', admin.site.urls),
     path("", mainView.index, name="index"),
@@ -33,21 +30,15 @@ urlpatterns = [
     path("Adminlogin", mainView.AdminLogin, name="AdminLogin"),
     path("UserLogin", mainView.UserLogin, name="UserLogin"),
     path('AdminHome', mainView.adminhome, name='AdminHome'),
-  
-    # admin views
-    path("AdminLogincheck", av.AdminLoginCheck, name="AdminLoginCheck"),
-    path('userDetails', av.RegisterUsersView, name='RegisterUsersView'),
-    path('ActivUsers/', av.ActivaUsers, name='activate_users'),
-    path('DeleteUsers/', av.DeleteUsers, name='delete_users'),
-    
-    #userurls
-    path('UserRegisterForm',uv.UserRegisterActions,name='UserRegisterForm'),
-    path("UserLoginCheck/", usr.UserLoginCheck, name="UserLoginCheck"),
-    path("UserHome/", usr.UserHome, name="UserHome"),
-    path("predictions/", usr.predictions, name="predictions"),
-    path("training/", usr.training, name="training"),
-    path("index/", usr.index, name="index"),
-   
-
-]+ static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
-
+    # admin views  
+    path("AdminLogincheck", av.AdminLoginCheck, name="AdminLoginCheck"),  
+    path('userDetails', av.RegisterUsersView, name='RegisterUsersView'),  
+    path('ActivUsers/', av.ActivaUsers, name='activate_users'),  
+    path('DeleteUsers/', av.DeleteUsers, name='delete_users'),  
+    #userurls  
+    path('UserRegisterForm',uv.UserRegisterActions,name='UserRegisterForm'),  
+    path("UserLoginCheck/", usr.UserLoginCheck, name="UserLoginCheck"),  
+    path("UserHome/", usr.UserHome, name="UserHome"),  
+    path("predictions/", usr.predictions, name="predictions"),  
+    path("training/", usr.training, name="training"),  
+    path("index/", usr.index, name="index"),]+ static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
