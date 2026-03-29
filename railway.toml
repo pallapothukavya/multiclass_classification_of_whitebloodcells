@@ -1,5 +1,5 @@
 [build]
-builder = "NIXPACKS"
+builder = "DOCKER"
 
 [deploy]
-startCommand = "gunicorn WBC_Classification.wsgi:application --bind 0.0.0.0:${PORT:-8000} --timeout 300 --access-logfile -"
+startCommand = "sh -c 'gunicorn WBC_Classification.wsgi:application --bind 0.0.0.0:${PORT:-8000} --timeout 300 --access-logfile -'"
