@@ -5,3 +5,7 @@ django-cors-headers
 pillow
 numpy
 django-cors-headers
+TensorFlow
+Pandas
+Scikit-learn
+Matplotlib
