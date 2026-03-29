@@ -12,4 +12,4 @@ COPY . .
 
 RUN python manage.py collectstatic --noinput
 
-CMD ["sh", "-c", "echo PORT=$PORT && gunicorn multiclass_classification_of_whitebloodcells.wsgi:application --bind 0.0.0.0:$PORT"]
+CMD ["sh", "-c", "echo PORT=$PORT && gunicorn WBC_Classification.wsgi:application --bind 0.0.0.0:$PORT"]
