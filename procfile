@@ -1,1 +1,0 @@
-web: gunicorn WBC_Classification.wsgi --bind 0.0.0.0:$PORT
