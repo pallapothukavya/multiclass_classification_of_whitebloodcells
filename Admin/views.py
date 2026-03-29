@@ -14,7 +14,7 @@ def AdminLoginCheck(request):
         pswd = request.POST.get('pswd')
         print("User ID is = ", usrid)
         if usrid == 'admin' and pswd == 'admin':
-            return render(request, 'admins/AdminHome.html')
+            return redirect('AdminHome')
 
         else:
             messages.success(request, 'Please Check Your Login Details')
@@ -53,3 +53,23 @@ def DeleteUsers(request):
         return redirect('RegisterUsersView')  # Replace with your actual URL name
 
 
+from django.http import JsonResponse
+from django.views.decorators.csrf import csrf_exempt
+
+@csrf_exempt
+def api_admin_login(request):
+    if request.method == 'POST':
+        import json
+        try:
+            data = json.loads(request.body)
+            usrid = data.get('loginid')
+            pswd = data.get('password')
+        except:
+            usrid = request.POST.get('loginid')
+            pswd = request.POST.get('password')
+
+        if usrid == 'admin' and pswd == 'admin':
+            return JsonResponse({'status': 'success', 'message': 'Admin login successful'})
+        else:
+            return JsonResponse({'status': 'error', 'message': 'Invalid admin credentials'}, status=401)
+    return JsonResponse({'status': 'error', 'message': 'Invalid request method'}, status=405)

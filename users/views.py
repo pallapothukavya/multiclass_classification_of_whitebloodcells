@@ -1,5 +1,7 @@
 from django.conf import settings
 from django.shortcuts import render, redirect
+from django.http import JsonResponse
+from django.views.decorators.csrf import csrf_exempt
 import pandas as pd
 from .models import UserRegistrationModel
 from django.contrib import messages
@@ -268,3 +270,95 @@ def predictions(request):
         'image_url': file_url
     })
 
+@csrf_exempt
+def api_predictions(request):
+    if request.method == 'POST' and request.FILES.get('image'):
+        uploaded_file = request.FILES['image']
+        fs = FileSystemStorage()
+        filename = fs.save(uploaded_file.name, uploaded_file)
+        file_url = fs.url(filename)
+
+        img_path = os.path.join(fs.location, filename)
+        img = Image.open(img_path).convert('RGB')
+        img = img.resize((160, 120))
+        img_array = np.array(img) / 255.0
+        img_array = np.expand_dims(img_array, axis=0)
+
+        model = load_model('multiclass.h5')
+        prediction = model.predict(img_array)
+        confidence = float(np.max(prediction))
+        predicted_index = int(np.argmax(prediction))
+
+        threshold = 0.98
+        if confidence < threshold:
+            result = "This is not a valid White Blood Cell image"
+            status = "invalid"
+        else:
+            result = class_names[predicted_index]
+            status = "success"
+
+        return JsonResponse({
+            'status': status,
+            'predicted_class': result,
+            'confidence': confidence,
+            'image_url': request.build_absolute_uri(file_url)
+        })
+    return JsonResponse({'status': 'error', 'message': 'No image uploaded'}, status=400)
+
+@csrf_exempt
+def api_user_login(request):
+    if request.method == "POST":
+        import json
+        try:
+            data = json.loads(request.body)
+            loginid = data.get('loginid')
+            pswd = data.get('password')
+        except:
+            loginid = request.POST.get('loginid')
+            pswd = request.POST.get('password')
+
+        try:
+            check = UserRegistrationModel.objects.get(loginid=loginid, password=pswd)
+            if check.status == "activated":
+                return JsonResponse({
+                    'status': 'success',
+                    'message': 'Login successful',
+                    'user': {
+                        'id': check.id,
+                        'name': check.name,
+                        'email': check.email
+                    }
+                })
+            else:
+                return JsonResponse({'status': 'error', 'message': 'Account not activated'}, status=401)
+        except UserRegistrationModel.DoesNotExist:
+            return JsonResponse({'status': 'error', 'message': 'Invalid Login ID or Password'}, status=401)
+    return JsonResponse({'status': 'error', 'message': 'Invalid request method'}, status=405)
+
+@csrf_exempt
+def api_user_register(request):
+    if request.method == 'POST':
+        import json
+        try:
+            data = json.loads(request.body)
+        except:
+            data = request.POST
+
+        try:
+            user = UserRegistrationModel(
+                name=data.get('name'),
+                loginid=data.get('loginid'),
+                password=data.get('password'),
+                mobile=data.get('mobile'),
+                email=data.get('email'),
+                locality=data.get('locality', ''),
+                address=data.get('address', ''),
+                city=data.get('city', ''),
+                state=data.get('state', ''),
+                status='waiting'
+            )
+            user.save()
+            return JsonResponse({'status': 'success', 'message': 'Registration successful! Waiting for admin activation.'})
+        except Exception as e:
+            return JsonResponse({'status': 'error', 'message': str(e)}, status=400)
+    return JsonResponse({'status': 'error', 'message': 'Invalid request method'}, status=405)

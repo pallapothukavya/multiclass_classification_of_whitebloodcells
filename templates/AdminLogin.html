@@ -7,7 +7,7 @@
         background-size: cover;
         background-position: center;
         display: flex;
-        {% comment %} justify-content: center; {% endcomment %}
+        /* justify-content: center; */
         align-items: center;
         min-height: 100vh;
         font-family: Arial, sans-serif;
@@ -32,6 +32,7 @@
         text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.2);
         background: linear-gradient(45deg, #FFA500, #FF4500);
         -webkit-background-clip: text;
+        background-clip: text;
         color: transparent;
     }
     .form-group label {
@@ -58,7 +59,7 @@
 <section class="content">
     <div class="container">
         <h2 class="admin-login-heading">Admin Login</h2>
-        <form action="AdminLogincheck" method="POST">
+        <form action="{% url 'AdminLoginCheck' %}" method="POST">
             {% csrf_token %}
             <div class="form-group">
                 <input type="text" class="form-control" name="loginid" required placeholder="Enter Login ID">

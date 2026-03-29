@@ -26,19 +26,23 @@ from users import views as uv
 urlpatterns = [
     path('admin/', admin.site.urls),
     path("", mainView.index, name="index"),
-    path("index", mainView.index, name="index"),
-    path("Adminlogin", mainView.AdminLogin, name="AdminLogin"),
-    path("UserLogin", mainView.UserLogin, name="UserLogin"),
-    path('AdminHome', mainView.adminhome, name='AdminHome'),
+    path("Adminlogin/", mainView.AdminLogin, name="AdminLogin"),
+    path("UserLogin/", mainView.UserLogin, name="UserLogin"),
+    path('admin_home/', mainView.adminhome, name='AdminHome'),
     # admin views  
-    path("AdminLogincheck", av.AdminLoginCheck, name="AdminLoginCheck"),  
-    path('userDetails', av.RegisterUsersView, name='RegisterUsersView'),  
-    path('ActivUsers/', av.ActivaUsers, name='activate_users'),  
-    path('DeleteUsers/', av.DeleteUsers, name='delete_users'),  
+    path("admin_login_check/", av.AdminLoginCheck, name="AdminLoginCheck"),  
+    path('user_details/', av.RegisterUsersView, name='RegisterUsersView'),  
+    path('activate_users/', av.ActivaUsers, name='activate_users'),  
+    path('delete_users/', av.DeleteUsers, name='delete_users'),  
     #userurls  
     path('UserRegisterForm',uv.UserRegisterActions,name='UserRegisterForm'),  
     path("UserLoginCheck/", usr.UserLoginCheck, name="UserLoginCheck"),  
     path("UserHome/", usr.UserHome, name="UserHome"),  
     path("predictions/", usr.predictions, name="predictions"),  
     path("training/", usr.training, name="training"),  
-    path("index/", usr.index, name="index"),]+ static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+    path("index/", usr.index, name="index"),
+    path("api/predict/", usr.api_predictions, name="api_predictions"),
+    path("api/user/login/", usr.api_user_login, name="api_user_login"),
+    path("api/user/register/", usr.api_user_register, name="api_user_register"),
+    path("api/admin/login/", av.api_admin_login, name="api_admin_login"),
+]+ static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
