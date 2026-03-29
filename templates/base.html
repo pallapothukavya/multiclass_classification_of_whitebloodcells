@@ -8,6 +8,7 @@
     <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
     <title>WBC Classification Using CNN</title>
     <style>
+        /* Exactly your old style */
         body {
             display: flex;
             min-height: 100vh;
@@ -17,47 +18,46 @@
             background-position: center;
             color: white;
         }
+
         .sidebar {
             min-width: 250px;
-            background-color: rgba(0, 0, 0, 0.7); /* Semi-transparent background */
+            background-color: rgba(0, 0, 0, 0.7);
             padding: 20px;
-            position: fixed; /* Keep sidebar fixed */
-            height: 100%; /* Full height */
+            position: fixed;
+            height: 100%;
         }
         .content {
             flex-grow: 1;
             padding: 20px;
-            margin-left: 270px; /* Adjusted for sidebar width */
-            background-color: transparent; /* Keep content area transparent */
-            border-radius: 10px; /* Rounded corners */
+            margin-left: 270px;
+            background-color: transparent;
+            border-radius: 10px;
         }
+
         .nav-link {
             margin-bottom: 10px;
-            color: rgb(12, 2, 2); /* White text for nav links */
-            
-            font-weight:bold;
-            padding: 15px 25px; /* Padding for button look */
-            border-radius: 15px; /* Rounded corners */
+            color: rgb(12, 2, 2);
+            font-weight: bold;
+            padding: 15px 25px;
+            border-radius: 15px;
             background-size: cover;
             background-position: center;
-            transition: background-color 0.3s, color 0.3s, border 0.3s, transform 0.2s; /* Transition effects */
+            transition: background-color 0.3s, color 0.3s, border 0.3s, transform 0.2s;
         }
-        /* Custom backgrounds for each nav link */
-        .nav-link.home { background-image: url("{% static 'wbc image.jpeg' %}"); }
+        .nav-link.home      { background-image: url("{% static 'wbc image.jpeg' %}"); }
         .nav-link.user-login { background-image: url("{% static 'wbc image.jpeg' %}"); }
         .nav-link.admin-login { background-image: url("{% static 'wbc image.jpeg' %}"); }
         .nav-link.create-account { background-image: url("{% static 'wbc image.jpeg' %}"); }
 
-        /* Hover effect */
         .nav-link:hover {
-            color: #FFD700; /* Gold color on hover */
-            background-color: rgba(255, 255, 255, 0.2); /* Light background on hover */
-            transform: scale(1.05); /* Slightly grow button on hover */
+            color: #FFD700;
+            background-color: rgba(255, 255, 255, 0.2);
+            transform: scale(1.05);
         }
 
         h2 {
             color: #FFA500;
-            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.7); /* Shadow for text */
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.7);
         }
 
         footer {
@@ -67,6 +67,32 @@
             left: 0;
             right: 0;
             color: white;
+        }
+
+
+        /* --------------------------
+           ONLY MOBILE FIX (no change on laptop)
+           -------------------------- */
+        @media (max-width: 767.98px) {
+            body {
+                flex-direction: column;
+                display: block; /* Override your flex */
+            }
+            .sidebar {
+                position: static;
+                min-width: 100%;
+                height: auto;
+                top: 0;
+                left: 0;
+            }
+            .content {
+                margin-left: 0;
+                padding: 15px;
+            }
+            footer {
+                position: static;
+                margin-top: 10px;
+            }
         }
     </style>
 </head>
@@ -78,14 +104,17 @@
             <a class="nav-link user-login" href="{% url 'UserLogin' %}">User Login</a>
             <a class="nav-link admin-login" href="{% url 'AdminLogin' %}">Admin Login</a>
             <a class="nav-link create-account" href="{% url 'UserRegisterForm' %}">Create Account</a>
-            
         </div>
     </div>
-    
+
     <div class="content">
         {% block contents %}
         {% endblock %}
     </div>
+
+    <footer>
+        &copy; WBC Classification Using CNN
+    </footer>
 
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"></script>
