@@ -1,12 +1,12 @@
 { pkgs }: {
   deps = [
-    pkgs.python39Full
-    pkgs.python39Packages.pip
-    pkgs.python39Packages.numpy
-    pkgs.python39Packages.pandas
-    pkgs.python39Packages.scikit-learn
-    pkgs.python39Packages.matplotlib
-    pkgs.python39Packages.opencv4
+    pkgs.python311
+    pkgs.python311Packages.pip
+    pkgs.python311Packages.numpy
+    pkgs.python311Packages.pandas
+    pkgs.python311Packages.scikit-learn
+    pkgs.python311Packages.matplotlib
+    pkgs.python311Packages.opencv4
     pkgs.gcc
     pkgs.libGL
   ];
