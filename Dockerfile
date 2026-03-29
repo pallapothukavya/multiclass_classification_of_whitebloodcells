@@ -12,4 +12,5 @@ COPY . .
 
 RUN python manage.py collectstatic --noinput
 
-CMD ["sh", "-c", "gunicorn WBC_Classification.wsgi:application --bind 0.0.0.0:${PORT:-8000} --timeout 300 --log-level warning --access-logfile -"]
+# Use the configuration file
+CMD ["gunicorn", "-c", "gunicorn.conf.py", "WBC_Classification.wsgi:application"]

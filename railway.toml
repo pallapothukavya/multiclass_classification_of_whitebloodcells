@@ -2,7 +2,7 @@
 builder = "DOCKER"
 
 [deploy]
-startCommand = "sh -c 'gunicorn WBC_Classification.wsgi:application --bind 0.0.0.0:${PORT:-8080} --timeout 300 --log-level warning --access-logfile -'"
+startCommand = "gunicorn -c gunicorn.conf.py WBC_Classification.wsgi:application"
 port = 8080
 healthcheckPath = "/"
 healthcheckTimeout = 120
