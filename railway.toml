@@ -2,7 +2,8 @@
 builder = "DOCKER"
 
 [deploy]
-startCommand = "sh -c 'gunicorn WBC_Classification.wsgi:application --bind 0.0.0.0:${PORT} --timeout 300 --log-level warning --access-logfile -'"
+startCommand = "sh -c 'gunicorn WBC_Classification.wsgi:application --bind 0.0.0.0:${PORT:-8080} --timeout 300 --log-level warning --access-logfile -'"
+port = 8080
 healthcheckPath = "/"
 healthcheckTimeout = 120
 restartPolicyType = "ON_FAILURE"
