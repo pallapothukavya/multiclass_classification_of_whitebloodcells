@@ -4,9 +4,6 @@ whitenoise
 psycopg2-binary
 django-cors-headers
 pillow
-numpy==1.23.5
-pandas==1.5.3
-scikit-learn==1.2.2
-tensorflow-cpu==2.10.0
-opencv-python
-streamlit 
+pandas
+scikit-learn
+opencv-python-headless
