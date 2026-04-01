@@ -7,7 +7,7 @@ pillow
 numpy
 pandas
 scikit-learn
-tensorflow-cpu==2.10.0
+tensorflow-cpu
 opencv-python-headless
 streamlit
 setuptools
